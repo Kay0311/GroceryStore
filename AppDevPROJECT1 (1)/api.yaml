@@ -1,0 +1,407 @@
+openapi: 3.0.0
+info:
+  title: The Grocery Store Project
+  description: >
+    <div><h4>The Grocery Store is to allow the users to efficiently buy grocery products they need. The admin/store manager can add, delete, update or remove the sections and products easily .</h4>
+    </div>
+
+    <h3> Section Table Schema </h3> 
+      <table>
+        <thead>
+          <th>Column Name</th>
+          <th>Column Type</th>
+          <th>Constraints</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td>section_id</td>
+          <td>Integer</td>
+          <td>Primary Key, Auto Increment</td>
+        </tr>
+        <tr>
+          <td>section_name</td>
+          <td>String</td>
+          <td>Not Null</td>
+        </tr>
+        <tr>
+          <td>category</td>
+          <td>String</td>
+          <td>Not Null</td>
+      </tbody>
+      </table>
+
+  <h3> Product Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>p_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>product_name</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>manufacturingdate</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>      
+      <tr>
+        <td>expirydate</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>price</td>
+        <td>Integer</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>unit</td>
+        <td>Integer</td>
+        <td>Not Null</td>
+      </tr>
+      <tr>
+        <td>quantity</td>
+        <td>Integer</td>
+        <td>Not Null</td>
+      </tr>
+    </tbody>
+    </table>
+
+      <h3> User Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>username</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>
+      <tr>
+        <td>email_address</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>      
+      <tr>
+        <td>password_hash</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>         
+    </tbody>
+    </table>
+
+    <h3> Admin Table Schema </h3> 
+    <table>
+      <thead>
+        <th>Column Name</th>
+        <th>Column Type</th>
+        <th>Constraints</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>admin_id</td>
+        <td>Integer</td>
+        <td>Primary Key, Auto Increment</td>
+      </tr>
+      <tr>
+        <td>admin_name</td>
+        <td>String</td>
+        <td>Unique, Not Null</td>
+      </tr>      
+      <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>Not Null</td>
+      </tr>         
+    </tbody>
+    </table>
+             
+    <h3> Error Codes </h3> 
+    <table>
+      <thead>
+        <th>Resource</th>
+        <th>Error Code</th>
+        <th>Message</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Section</td>
+        <td>SECTION001</td>
+        <td>Section Name is required</td>
+      </tr>
+      <tr>
+        <td>Section</td>
+        <td>SECTION002</td>
+        <td>Category is required</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>PROD001</td>
+        <td>Product Name is required</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>PROD002</td>
+        <td>manufacturing date is required</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>PROD003</td>
+        <td>expiry date is required</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>PROD004</td>
+        <td>price is required</td>
+      </tr>
+      <tr>
+        <<td>Product</td>
+        <td>PROD005</td>
+        <td>unit is required</td>
+      </tr>  
+      <tr>
+        <td>Product</td>
+        <td>PROD006</td>
+        <td>quantity is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER001</td>
+        <td>User Name is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER002</td>
+        <td>Email Address is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER003</td>
+        <td>Password is required</td>
+      </tr>
+      <tr>
+        <td>User</td>
+        <td>USER004</td>
+        <td>user already exist</td>
+      </tr>
+      <tr>
+        <td>Admin</td>
+        <td>ADMIN001</td>
+        <td>Admin Name is required</td>
+      </tr>
+      <tr>
+        <td>Admin</td>
+        <td>ADMIN002</td>
+        <td>Password is required</td>
+      </tr>
+      </tbody>  
+    </table>    
+
+
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8080/
+paths:  
+    /api/section/{s_id}:
+    description: Url to read,update and delete the section
+    get:
+      description: operation to read the section
+      parameters:
+        - in: path
+          name: section_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Request Successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    section_id:
+                     type: integer
+                     example: 1
+                    section_name:
+                      type: string
+                      example: Vegetables
+                    category:
+                      type: string
+                      example: Fresh
+
+        '400':
+          description: Error in creating section
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Section not found
+        '500':
+          description: Internal Server Error
+
+    put:
+      description: operation to update the section
+      parameters:
+        - in: path
+          name: section_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          
+            
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                section_name:
+                  type: string
+                  example: Vegetable
+                category:
+                  type: string
+                  example: Fresh
+                  
+      responses:
+        '201':
+          description: Section Update successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    venue_id:
+                     type: integer
+                     example: 1
+                    section_name:
+                  type: string
+                  example: Vegetable
+                category:
+                  type: string
+                  example: Fresh
+        '404':
+          description: Section not found
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+    delete:
+      description: operation to delete the section
+      parameters:
+        - in: path
+          name: section_id
+          required: true
+          schema:
+            type: integer
+            example: 1
+        
+      responses:
+        '200':
+          description: Successfully deleted
+        '400':
+          description: Invalid section_id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+        '404':
+          description: Section not found
+        '500':
+          description: Internal Server Error
+
+  /api/section:
+    description: Url to create the section
+    post:
+      description: opertion to create the section
+      parameters:
+      - name: admin_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                section_name:
+                      type: string
+                      example: Vegetable
+                category:
+                      type: string
+                      example: fresh
+      responses:
+        '201':
+          description: Successfully Created
+          content:
+            application/json:
+              schema:
+                title: student object
+                type: object
+                properties:
+                section_name:
+                      type: string
+                      example: Vegetable
+                category:
+                      type: string
+                      example: fresh
+                    
+        '409':
+          description: Section already exist
+        '500':
+          description: Internal Server Error
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string                
+ 

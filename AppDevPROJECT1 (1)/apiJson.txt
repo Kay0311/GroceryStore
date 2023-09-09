@@ -1,0 +1,50 @@
+===========================SECTION===========================================
+GET 
+http://127.0.0.1:8080/api/section/1
+
+POST 
+http://127.0.0.1:8080/api/section
+
+{
+    "section_name": "Fruits",
+    "category": "Fresh"
+}
+
+PUT 
+http://127.0.0.1:8080/api/section/1
+{
+  "section_name": "New Name",
+  "category": "New Category"
+}
+
+DELETE 
+http://127.0.0.1:8080/api/section/1
+
+
+====================================PRODUCT==================================================
+
+GET 
+http://127.0.0.1:8080/api/product/1
+
+POST
+http://127.0.0.1:8080/api/product/create/1
+{
+    "product_name": "New Product",
+    "manufacturingdate": "2023-09-07",
+    "expirydate": "2023-12-31",
+    "price": 10,
+    "unit": "pcs",
+    "quantity": 100
+}
+
+PUT 
+http://127.0.0.1:8080/api/product/1
+{
+    "product_name": "Updated Product",
+    "price": 15,
+    "unit": "pack",
+    "quantity": 200
+}
+
+DELETE 
+http://127.0.0.1:8080/api/product/1

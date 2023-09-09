@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body {
+        padding-top: 60px;
+        background-color: white;
+        color: #212121;
+      }
+      .navbar {
+        margin-bottom: 20px;
+        background-color: #343a40;
+      }
+      .navbar-brand {
+        color: #ffffff;
+        font-weight: bold;
+      }
+      .navbar-toggler-icon {
+        background-color: #ffffff;
+      }
+      .navbar-dark .navbar-nav .nav-link {
+        color: #ffffff;
+      }
+      .navbar-dark .navbar-nav .nav-link:hover {
+        color: #f8f9fa;
+      }
+      .navbar-dark .navbar-nav .active > .nav-link {
+        color: #f8f9fa;
+      }
+      .navbar-dark .navbar-nav .nav-link:focus {
+        color: #f8f9fa;
+      }
+    </style>
+  </head>  
+<body class="text-center">
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Grocery Store</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for ('home_page') }}">Home <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for ('store') }}">Store</a>
+          </li>
+        </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for ('admin_logout') }}">Admin Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:history.back()">Back</a>
+            </li>
+          </ul>   
+      </div>
+    </div>
+  </nav>
+
+  
+    <h2 class="section-heading">Admin Dashboard</h2>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="border p-3">
+          <h3 class="mb-4">Sections Created</h3>
+          {% if sec=={} %}
+          <h2>No Section has been created by you</h2>
+          <a class="btn btn-primary" href="/section/create/{{id}}">Create a Section</a>
+          {% endif %}
+
+          {% for i in sec %}
+          <div class="border mt-3 p-3">
+            <h4>{{ i.section_name }}</h4>
+            {% if sec[i] == [] %}
+              <h5>No product has been added to this section.</h5>
+              <a class="btn btn-success" href="/product/create/{{id}}/{{i.section_id}}">Add a Product</a>
+            {% else %}
+              <div class="table-responsive">
+                <table class="table table-striped table-lg">
+                  <thead>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>MFG date</th>
+                      <th>EXP date</th>
+                      <th>Price</th>
+                      <th>Unit</th>
+                      <th>Quantity</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for j in sec[i] %}
+                      <tr>
+                        <td>{{j.product_name}}</td>
+                        <td>{{j.manufacturingdate}}</td>
+                        <td>{{j.expirydate}}</td>
+                        <td>{{j.price}}</td>
+                        <td>{{j.unit}}</td>
+                        <td>{{j.quantity}}</td>
+                        <td>
+                          <div class="btn-group">
+                            <a class="btn btn-primary" href="/product/edit/{{j.p_id}}/section/{{i.section_id}}/{{id}}">Edit</a>
+                            <a class="btn btn-danger" href="/product/delete/{{ j.p_id }}/section/{{ i.section_id }}/{{ id }}">Delete</a>
+                          </div>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <a class="btn btn-success" href="/product/create/{{id}}/{{i.section_id}}">Add a Product</a>
+            {% endif %}
+            <a class="btn btn-primary" href="/section/edit/{{id}}/{{i.section_id}}">Edit a Section</a>
+            <a class="btn btn-danger" href="/section/delete/{{id}}/{{i.section_id}}">Delete a Section</a>
+          </div>          
+          {% endfor %}
+          <a class="btn btn-success" href="/section/create/{{id}}">Create a Section</a>
+        </div>
+      </div>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

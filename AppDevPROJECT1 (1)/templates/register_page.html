@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    Register Form
+{% endblock %}
+{% block content %}
+    <h6>Fill the following details to register yourself</h6>
+<body class="text-center">
+    <br>
+    <div class="container"> 
+        <form method="POST" class="form-register" style="color:aliceblue">
+            {{ form.hidden_tag() }}
+            <h1 class="h3 mb-3 font-weight-normal">
+                Please Create Your Account
+            </h1>
+            <br>
+            {{ form.username.label() }}
+            {{ form.username(class="form-control", placeholder="User Name") }}
+
+            {{ form.email_address.label() }}
+            {{ form.email_address(class="form-control", placeholder="Email Address") }}
+
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Password") }}
+
+            {{ form.conpassword.label() }}
+            {{ form.conpassword(class="form-control", placeholder="Confirm Password") }}
+            <br>    
+            <div class="checkbox mb-3">
+                <h6>Already have an account?</h6>
+                <a class="btn btn-sm btn-secondary" href="{{ url_for('user_login') }}">Login</a>
+            </div>
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+            <br>
+    
+        </form>
+
+    </div>
+</body>
+{% endblock %}

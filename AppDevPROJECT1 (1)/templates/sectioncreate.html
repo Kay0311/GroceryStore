@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Section</title>  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      padding-top: 60px;
+      background-color: white;
+      color: #212121;
+    }
+    .navbar {
+      margin-bottom: 20px;
+      background-color: #343a40;
+    }
+    .navbar-brand {
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .navbar-toggler-icon {
+      background-color: #ffffff;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+      color: #ffffff;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #f8f9fa;
+    }
+    .navbar-dark .navbar-nav .active > .nav-link {
+      color: #f8f9fa;
+    }
+    .navbar-dark .navbar-nav .nav-link:focus {
+      color: #f8f9fa;
+    }
+  </style>
+</head>  
+<body class="text-center">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Grocery Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{{ url_for ('home_page') }}">Home <span class="sr-only"></span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for ('store') }}">Store</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:history.back()">Back</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for ('admin_logout') }}">Admin Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="container">
+        <h1>Create a Section</h1>
+        <form method="post" action="/section/create/{{id}}">
+            <label> Section name:</label>
+            <input type="text" name="section_name" required>
+            <label> Category</label>
+            <input list="category" name="category" required>
+            <datalist id="category">
+                <option value="Fresh">
+                <option value="Packed">
+                <option value="Dairy">
+                <option value="Frozen">
+                <option value="Dessert">
+                <option value="Grains">        
+            </datalist>
+            <input type="submit" value="Create">
+            <br>       
+        </form>
+    </div>    
+    
+</body>
+</html>

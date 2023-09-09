@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+    User Profile
+{% endblock %}
+{% block content %}
+<body class="text-center">
+    <h2>User Profile</h2>
+    <div class="user-details">
+        <h5><strong>Username:</strong>  {{current_user.username}}</h5>
+        <h5><strong>Email Address:</strong> {{current_user.email_address}}</h5>
+    </div>
+    <div class="order-history">
+        <h3>Order History</h3>
+        {% if orders %}
+            <ul id="order-list">
+                <table style="margin: 0 auto;">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Products</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.order_id }}</td>
+                            <td>{{ order.order_date }}</td>
+                            <td>{{ order.product_names }}</td>
+                            <td>Rs.{{ order.total_amount }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+            </ul>
+        {% else %}
+            <p>No orders placed by you.</p>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}
+
